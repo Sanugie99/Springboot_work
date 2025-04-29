@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.example.demo.di5.wheel&apos; to &apos;Wheel&apos;&#x0D;&#x0A;- Original project: &apos;demo&apos;&#x0D;&#x0A;- Original element: &apos;com.example.demo.di5.wheel&apos;&#x0D;&#x0A;- Renamed element: &apos;com.example.demo.di5.Wheel&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;wheel&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/gradle_scope=/main=/=/gradle_used_by_scope=/main,test=/&lt;com.example.demo.di5{wheel.java[wheel" matchStrategy="1" name="Wheel" qualified="false" references="true" similarDeclarations="false" stamp="1745892386494" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,5 @@
+package com.korea.dependency.qualifier;
+
+public interface Computer {
+
+}
