@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Qualifier("desktop")
-public class Desktop implements Computer {
+public class Desktop implements Computer{
 
 	@Override
 	public int getScreenWidth() {

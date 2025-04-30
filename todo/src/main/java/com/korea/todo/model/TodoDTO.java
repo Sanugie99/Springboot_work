@@ -13,10 +13,18 @@ public class TodoDTO {
 	private String id;
 	private String title;
 	private boolean done;
-	
+		
 	public TodoDTO(TodoEntity entity) {
 		this.id = entity.getId();
 		this.title = entity.getTitle();
 		this.done = entity.isDone();
 	}
 }
+
+
+
+
+
+
+
+
