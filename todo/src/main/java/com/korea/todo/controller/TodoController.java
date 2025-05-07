@@ -40,7 +40,7 @@ public class TodoController {
 //		return ResponseEntity.ok().body(response);
 //	}
 
-	// 요청을 통햇 ㅓ넘어오는 정보는 요청본문에 담겨서 온다.
+	// 요청을 통해서 넘어오는 정보는 요청본문에 담겨서 온다.
 	@PostMapping
 	public ResponseEntity<?> createTodo(@RequestBody TodoDTO dto) {
 		try {

@@ -48,6 +48,7 @@ public class TodoService {
 		//매개변수로 넘어온 entity가 유효한지 검사한다.
 		
 		//데이터베이스에 추가
+		//insert into todo valuse(...)
 		repository.save(entity);
 		
 		log.info("Entity Id : {} is Saved", entity.getId());
@@ -56,8 +57,10 @@ public class TodoService {
 	
 	//조회하는 retrive 메서드
 	public List<TodoEntity> retrieve(String userId) {
+		//select * from todo where userId = xxx;와 같음
 	    return repository.findByUserId(userId);
 	}
+	
 	
 	public List<TodoEntity> update(TodoEntity entity){
 		//저장할 엔티티가 유효한지 확인

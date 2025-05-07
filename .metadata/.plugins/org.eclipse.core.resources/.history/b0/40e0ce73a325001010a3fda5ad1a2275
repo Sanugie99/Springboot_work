@@ -1,5 +1,0 @@
-package com.korea.todo.persisence;
-
-public interface TodoRepository {
-
-}
