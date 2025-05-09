@@ -10,19 +10,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "users")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Entity
-@Table(name = "users")
 public class UserEntity {
+	
 	@Id
 	//JPA에서 기본 키를 자동으로 생성하는 방법을 정의하는 어노테이션
 	//H2와 같은 내장 데이터베이스를 사용하는 경우, 기본적으로 숫자 값이 증가하는
 	//방식으로 ID가 설정된다.
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private int id;
 	private String name;
 	private String email;
 }
+
+
+
+
+
+
