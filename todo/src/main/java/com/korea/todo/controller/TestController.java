@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.korea.todo.dto.TestRequestBodyDTO;
 import com.korea.todo.model.ResponseDTO;
-
-import lombok.Builder;
 
 @RestController
 //데이터를 반환하는 컨트롤러로 사용
@@ -55,29 +52,36 @@ public class TestController {
 	
 	@GetMapping("/users")
 	//public String getUserById(@RequestParam Long id)
-	//쿼리스트링의 key와 매개변수의 변수명이 일치한다면 value	값을 안줘도 된다.
-	//public String getUserById(@RequestParam(required = false Long id)
-	//값을 필수로 넣지 않아도 에러가 나지 않는다.
-	//public String getUserById(@RequestParam(defaultValue = "0") Long id)
+	//쿼리스트링의 key와 매개변수의 변수명이 일치한다면 value값을 안줘도 된다.
+	//public String getUserById(@RequestParam(required=false Long id)
+	//값을 필수로 넣지 않아도 에러가 나지는 않는다.
+	//public String getUserById(@RequestParam(defaultValue="0" Long id)
 	//값이 넘어오지 않았을 때 기본값을 설정할 수 있다.
-	public String getUserById(@RequestParam(value = "id", defaultValue = "") Long userId) {
+	public String getUserById(@RequestParam(value = "id",defaultValue="0") Long userId) {
 		return "User ID : " + userId;
 	}
+	
 	@GetMapping("/search")
-	public String search(@RequestParam("query") String query, @RequestParam("page") int page) {
+	public String search(@RequestParam("query") String query,
+						 @RequestParam("page") int page) {
 		return "Search query : " + query + ", page : " + page;
 	}
 	
-	@PostMapping("/submitFrom")
-	public String submitForm(@RequestParam("name") String name, @RequestParam("email") String email) {
-		return "Form submitted : Name" + name + ", Email : " + email;
+	@PostMapping("/submitForm")
+	public String submitForm(@RequestParam("name") String name,
+							 @RequestParam("email") String email) {
+		return "Form submitted : Name = " + name + ", Email = " + email;
 	}
 	
 	@GetMapping("/testRequestBody")
+	//JSON형식으로 전달되는 데이터를 TestRequestBodyDTO형식으로 만들어서
+	//넣어준다.
+	//{"id" : 123, "message":"hello ?"}
 	public String testRequestBody(@RequestBody TestRequestBodyDTO dto) {
 		return "ID : " + dto.getId() + ", Message : " + dto.getMessage();
 	}
 	
+
 	@GetMapping("/testResponseBody")
 	public ResponseDTO<String> testResponseBody(){
 		List<String> list = Arrays.asList("하나","둘","셋");
@@ -90,11 +94,12 @@ public class TestController {
 	@GetMapping("/testResponseEntity")
 	public ResponseEntity<?> testResponseEntity(){
 		List<String> list = new ArrayList<>();
-		list.add("Hello world! I'm ResponseEntitiy. And you got 400");
+		list.add("Hello World! I'm ResponseEntity. And you got 400");
 		ResponseDTO<String> response = ResponseDTO.<String>builder().data(list).build();
 		return ResponseEntity.badRequest().body(response);
 	}
-
+	//ResponseDTO를 반환하는것과 비교했을 때 큰 차이는 없지만
+	//단지 헤더와 HTTPStatus를 조작할 수 있다는 점이 다르다.
 }
 
 
