@@ -1,8 +1,6 @@
 package com.korea.todo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +27,6 @@ public class UserController {
 	//TokenProvider 클래스 주입받기
 	private final TokenProvider tokenProvider;
 	
-	
 	//회원가입
 	//로그인을 해야 토큰을 주는거지, 회원가입을 했다고 토큰을 주는게 아니다.
 	@PostMapping("/signup")
@@ -37,10 +34,10 @@ public class UserController {
 		//요청본문에 포함된 UserDTO 객체를 수신하여 처리한다.
 		try {
 			//UserDTO기반으로 UserEntity객체 생성하기
-	        UserEntity entity = UserEntity.builder()
-	                    .username(dto.getUsername())
-	                    .password(dto.getPassword())
-	                    .build();
+			UserEntity entity = UserEntity.builder()
+									.username(dto.getUsername())
+									.password(dto.getPassword())
+									.build();
 				
 			//UserEntity객체를 service로 보내서 데이터베이스에 추가하기
 			UserEntity responseUserEntity = service.create(entity);
