@@ -1,4 +1,4 @@
-package com.korea.product2.persistence;
+package com.korea.product2.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
