@@ -123,7 +123,7 @@ public class TodoController {
 	}
 	
 		@DeleteMapping
-		public ResponseEntity<?> deleteTodo(@AuthenticationPrincipal String userId,@RequestBody TodoDTO dto){
+		public ResponseEntity<?> deleteTodo( String userId,@RequestBody TodoDTO dto){
 			
 			//TodoDTO객체를 TodoEntity객체로 변환한다.
 			TodoEntity entity = TodoDTO.toEntity(dto);

@@ -3,7 +3,6 @@ package com.korea.product2.model;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Entity;
@@ -17,12 +16,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name="Product")
 public class ProductEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int productId;
@@ -30,10 +30,16 @@ public class ProductEntity {
 	private int productStock;
 	private int productPrice;
 	
-	@CreationTimestamp
+	@CreationTimestamp //insert쿼리가 발생할 때 현재 시간 값을 적용시켜준다.
 	private LocalDateTime registerDate;
 	
-	@UpdateTimestamp
+	@UpdateTimestamp//Update쿼리가 발생했을 때 현재 시간 값을 적용시켜준다.
 	private LocalDateTime updateDate;
 	
 }
+
+
+
+
+
+

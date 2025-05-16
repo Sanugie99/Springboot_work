@@ -1,4 +1,4 @@
-package com.korea.product2.model;
+package com.korea.product2.dto;
 
 import java.util.List;
 
@@ -8,11 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class ResponseDTO<T> {
-	
+
 	private String error;
 	private List<T> data;
 }
