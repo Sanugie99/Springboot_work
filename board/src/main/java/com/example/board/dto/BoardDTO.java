@@ -1,5 +1,7 @@
 package com.example.board.dto;
 
+import java.time.LocalDateTime;
+
 import com.example.board.model.BoardEntity;
 
 import lombok.AllArgsConstructor;
@@ -7,27 +9,29 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardDTO {
-	
+
 	private Long id;
 	private String title;
 	private String author;
-	private String writingTime;
+	private LocalDateTime writingTime;
 	private String content;
 	
-	public BoardDTO(BoardEntity entity) {
-		this.id = entity.getId();
-	    this.title = entity.getTitle();
-	    this.author = entity.getAuthor();
-	    this.content = entity.getContent();
-	    this.writingTime = entity.getWritingTime();
+	public static BoardDTO fromEntity(BoardEntity entity) {
+		return BoardDTO.builder()
+				.id(entity.getId())
+				.title(entity.getTitle())
+				.author(entity.getAuthor())
+				.writingTime(entity.getWritingTime())
+				.content(entity.getContent())
+				.build();
 	}
 	
-	public static BoardEntity toEntity(BoardDTO dto) {
+	public static BoardEntity fromDTO(BoardDTO dto) {
 		return BoardEntity.builder()
 				.id(dto.getId())
 				.title(dto.getTitle())
@@ -36,4 +40,15 @@ public class BoardDTO {
 				.content(dto.getContent())
 				.build();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

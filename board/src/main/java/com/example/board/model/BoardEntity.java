@@ -1,5 +1,9 @@
 package com.example.board.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,12 +19,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class BoardEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String title;
 	private String author;
-	private String writingTime;
+	
+	@CreationTimestamp
+	private LocalDateTime writingTime;
 	private String content;
 }
+
+
+
+
+
+
+
+
+
+

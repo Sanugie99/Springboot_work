@@ -1,48 +1,85 @@
 package com.example.board.service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.board.dto.BoardDTO;
 import com.example.board.model.BoardEntity;
 import com.example.board.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardService {
 
 	private final BoardRepository repository;
 
-	public List<BoardEntity> getAllPost() {
-		return repository.findAll();
+	//게시글 조회
+	public List<BoardDTO> getAllPosts() {
+		return repository.findAll().stream()
+				.map(BoardDTO::fromEntity)
+				.collect(Collectors.toList());
 	}
 
-	// 게시글 추가하기
-	public List<BoardEntity> create(BoardEntity entity) {
-		validate(entity);
-
+	//게시글 추가
+	public List<BoardDTO> createPost(BoardDTO dto) {
+		BoardEntity entity = BoardDTO.fromDTO(dto);
 		repository.save(entity);
-
-		return repository.findAll();
+		return getAllPosts();
 	}
 
-	// 게시글 삭제하기
-	public List<BoardEntity> deleteByIdAndReturnList(Long id) {
-		if (!repository.existsById(id)) {
-			throw new RuntimeException("게시글이 존재하지 않습니다.");
+	//한건 조회
+	public BoardDTO getPostById(Long id) {
+		 //id에 해당하는 게시물이 존재하는지 찾는다.
+		Optional<BoardEntity> option = repository.findById(id);
+		
+		BoardEntity entity = option.get();
+		
+		return BoardDTO.fromEntity(entity);
+		
+	}
+
+	public boolean delePost(Long id) {
+		if(repository.existsById(id)) {
+			repository.deleteById(id);
+			return true;
 		}
-		repository.deleteById(id);
-		return repository.findAll(); // 삭제 후 남은 모든 게시글 반환
+		return false;
+		
 	}
 
-	private void validate(BoardEntity entity) {
-		if (entity == null) {
-			throw new RuntimeException("Entity cannot be null");
-		}
+	public BoardDTO updatePost(Long id, BoardDTO dto) {
+		//기존의 내용을 꺼냄
+		BoardEntity entity =repository.findById(id).get();
+		
+		//수정한 내용을 entity
+		entity.setTitle(dto.getTitle());
+		entity.setAuthor(dto.getAuthor());
+		entity.setContent(dto.getContent());
+		
+		return BoardDTO.fromEntity(repository.save(entity));
+		
 	}
+	
 
+	
+	
+
+	
 }
+
+
+
+
+
+
+
