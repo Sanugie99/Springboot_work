@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,7 @@ public class PostController {
 	
 	//게시글 상세 조회
 	@GetMapping("/posts/{id}")
-	public ResponseEntity<?> getPostById(@PathVariable Long id){
+	public ResponseEntity<?> getPostById(@PathVariable("id") Long id){
 		PostDTO dto = service.getPostById(id);
 		return ResponseEntity.ok().body(dto);
 	}
@@ -46,4 +47,5 @@ public class PostController {
 		ResponseDTO<PostDTO> response = ResponseDTO.<PostDTO>builder().data(list).build();
 		return ResponseEntity.ok().body(response);
 	}
+	
 }

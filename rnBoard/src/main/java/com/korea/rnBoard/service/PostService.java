@@ -37,4 +37,6 @@ public class PostService {
 		repository.save(entity);
 		return getAllPosts();
 	}
+	
+	
 }
