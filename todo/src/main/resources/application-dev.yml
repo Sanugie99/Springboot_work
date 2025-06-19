@@ -1,0 +1,17 @@
+spring:
+  security:
+    oauth2:
+      client: #OAute2 클라이언트 시작
+        registration: #OAuth2 클라이언트 등록 정보
+          github: #GitHub 제공자에 대한 설정
+            clientId: Ov23liMGpcAAmuvC9ttP #GitHub OAuth 앱의 Client Id(GitHub에서 발급)
+            clientSecret: ab5ab909d21338ff092e9c49fea2a3045c1992f9
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}" #사용자가 로그인 승인 후 돌아올 리다이렉트 URI
+            scope: #GitHub로 부터 어떤 정보를 요청할지 정의
+              - user:email #이메일 주소 조회 허용
+              - read:user #프로필 정보 읽기 허용
+    provider: #OAuth2 인증 제공자 설정
+      github: #GitHub에 대한 provider 설정
+        authorization_uri: https://github.com/login/oauth/authorize # 사용자가 로그인할 때 요청되는 GitHub 인증 페이지 URL// 이 URL로 리다이렉션 되면 GitHub 로그인 화면이뜬다
+        token-uri: https://github.com/login/oauth/access_token
+        user-info-uri: https://api.github.com/user

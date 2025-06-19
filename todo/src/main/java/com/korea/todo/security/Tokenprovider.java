@@ -1,12 +1,15 @@
 package com.korea.todo.security;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.korea.todo.model.UserEntity;
+import com.mysql.cj.x.protobuf.MysqlxSession.AuthenticateContinue;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -52,6 +55,32 @@ public class TokenProvider {
 				.setIssuedAt(new Date())//iat 클레임 : 발급 시각
 				.setExpiration(expiryDate)//exp 클레임 : 만료 시각
 				.compact(); //최종 직렬화된 토큰 문자열 반환
+	}
+	
+	//토큰을 생성하는 create메서드
+	//매개변수의 타입이 다르기 때문에 오버로딩이 가능하다.
+	public String create(Authentication authentication) {
+		
+		//authentication
+		//Principal(사용자정보)
+		//Authorities(권한목록)
+		//isAuthenticated() (인증여부)
+		//details(세션 정보 등)
+		
+		//시큐리티의 인증 객체에서 사용자 정보를 추출
+		ApplicationOAuth2User userPrincipal = (ApplicationOAuth2User)authentication.getPrincipal(); //반환타입이 Object
+		
+		//토큰 만료날짜
+		Date expiryDate = Date.from(Instant.now().plus(1,ChronoUnit.DAYS));
+		
+		//JWT토큰 생성
+		return Jwts.builder()
+				.signWith(SignatureAlgorithm.HS512,SECRET_KEY)
+				.setSubject(userPrincipal.getName())
+				.setIssuer("demo app")
+				.setIssuedAt(new Date())
+				.setExpiration(expiryDate)
+				.compact();
 	}
 	
 	
